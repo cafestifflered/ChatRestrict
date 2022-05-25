@@ -32,3 +32,4 @@ Disable or Enable chat access for specific time periods.
 - Support for DiscordSRV to push chat messages through
 - Support for CarbonChat channels
 - Support for party, plot, towny, and faction plugins with private chat channels
+- Config option to automatically restrict chat when all staff members are offline
