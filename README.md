@@ -24,3 +24,11 @@ Disable or Enable chat access for specific time periods.
 - `/muteall` (Alias for `/chatrestrict enabled`)
 - `/chatrestrict disabled` (Puts server in chat allowed mode)
 - `/unmuteall` (Alias for `/chatrestrict disabled`)
+
+## Future Plans:
+
+- Create different groups that follow different schedules
+- Push chat messages through to staff who have a specific permission
+- Support for DiscordSRV to push chat messages through
+- Support for CarbonChat channels
+- Support for party, plot, towny, and faction plugins with private chat channels
