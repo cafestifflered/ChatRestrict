@@ -1,0 +1,16 @@
+predicates:
+  example-predicate:
+    type: "dummy"
+predicate-terminate-on: false
+messages:
+  not-sent: '<red>Your message was not sent!'
+  blocking-enabled: '<red>You are no longer able to send messages.'
+  blocking-disabled: '<green>You are now able to send messages.'
+  command:
+    prefix: '<color:#ff4040>ChatRestrict</color> <color:#da0000>>></color> '
+    no-permission: '<red>No permission!'
+    chat-restrict:
+      usage: '<red>/chatrestrict <reload/toggle/enable/disable>'
+      reload: '<color:gray>Reloaded in <ms> milliseconds.'
+      override-disabled: '<green>Players are now able to talk.'
+      override-enabled: '<green>Players are now under restricted chat.'
