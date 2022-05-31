@@ -13,4 +13,4 @@ messages:
       usage: '<red>/chatrestrict <reload/toggle/enable/disable>'
       reload: '<color:gray>Reloaded in <ms> milliseconds.'
       override-disabled: '<green>Players are now able to talk.'
-      override-enabled: '<green>Players are now under restricted chat.'
+      override-enabled: '<yellow>Players are now unable to talk.'
