@@ -13,10 +13,10 @@ public class UserInputPredicateRegistry {
 
     public static void bootstrap() {
         add("flip", new FlipPredicate.FlipSerializer());
-        add("valid_weekdays", new ValidWeekDaysPredicate.ValidWeekDaysPredicateDeserializer());
-        add("valid_timerange", new ValidTimeRangePredicate.ValidTimeRangePredicateDeserializer());
-        add("invalid_commands", new InvalidCommandsPredicate.InvalidCommandsPredicateDeserializer());
-        add("compound", CompoundPredicate.CompoundPredicateSerializer.INSTANCE);
+        add("allowed_weekdays", new ValidWeekDaysPredicate.ValidWeekDaysPredicateDeserializer());
+        add("allowed_timerange", new ValidTimeRangePredicate.ValidTimeRangePredicateDeserializer());
+        add("disallowed_commands", new InvalidCommandsPredicate.InvalidCommandsPredicateDeserializer());
+        add("ruleset", CompoundPredicate.CompoundPredicateSerializer.INSTANCE);
         // Permission predicate?
     }
 
@@ -24,7 +24,7 @@ public class UserInputPredicateRegistry {
         String id = section.getString("type");
         UserInputPredicate.PredicateDeserializer<?> deserializer = PREDICATE_MAP.get(id);
         if (deserializer == null) {
-            throw new IllegalArgumentException("Could not find %s as a valid predicate!".formatted(id));
+            throw new IllegalArgumentException("Could not find %s as a valid rule!".formatted(id));
         }
 
         return deserializer.deserialize(section);
