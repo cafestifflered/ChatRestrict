@@ -21,7 +21,7 @@ rules:
 ```
 
 ### Default rules.yml
-This is the default rules.yml file which includes a ruleset (with two contained rules) and another separate rule. With these default values, chat is allowed on every day of the week except between 11:59 PM and 12:00 AM. Three fake commands are also blocked, regardless of if the ruleset is true.
+This is the default rules.yml file which includes a ruleset (with two contained rules) and two other separate rules. With these default values, chat is allowed on every day of the week except between 11:59 PM and 12:00 AM. Three fake commands are also blocked, regardless of if the ruleset is true. The time between 4:32 AM and 4:33 AM has chat blocked, also regardless of whether other rules are true.
 
 For example, if the server admin wanted they could add a "disallowed_commands" rule type to a ruleset, along with rules for specific times and days of the week, to restrict those commands on a specific schedule (unless the player has a bypass permission).
 ```yaml
@@ -40,6 +40,13 @@ rules:
   command-blocklist:
     type: "disallowed_commands"
     commands: ["cr_comma", "cr_separated", "cr_list_of_commands"]
+  flipped-rule:
+    type: "flip"
+    rule:
+      type: "allowed_timerange"
+      time_min: "4:32 AM"
+      time_max: "4:33 AM"
+      zone: "EST"
 ```
 
 ### Types:
@@ -102,9 +109,9 @@ Flips the result of the rule provided in the ``rule`` section.
 rules:
   my-cool-rule:
     type: "flip"
-      rule:
-        type: "allowed_weekdays"
-        week_days: ["MONDAY", "TUESDAY"]
+    rule:
+      type: "allowed_weekdays"
+      week_days: ["MONDAY", "TUESDAY"]
 ```
 In this case, players are able to talk on days that are NOT Monday or Tuesday.
 
@@ -147,7 +154,6 @@ rules:
 
 ## Future Plans:
 
-- Create different groups that follow different schedules
 - Push chat messages through to staff who have a specific permission
 - Support for DiscordSRV to push chat messages through
 - Support for CarbonChat channels

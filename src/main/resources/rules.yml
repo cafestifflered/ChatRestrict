@@ -7,9 +7,16 @@ rules:
         week_days: ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
       chat-time:
         type: "allowed_timerange"
-        time_min: "3:00 AM"
+        time_min: "12:00 AM"
         time_max: "11:59 PM"
         zone: "EST"
   command-blocklist:
     type: "disallowed_commands"
     commands: ["cr_comma", "cr_separated", "cr_list_of_commands"]
+  flipped-rule:
+    type: "flip"
+    rule:
+      type: "allowed_timerange"
+      time_min: "4:32 AM"
+      time_max: "4:33 AM"
+      zone: "EST"
