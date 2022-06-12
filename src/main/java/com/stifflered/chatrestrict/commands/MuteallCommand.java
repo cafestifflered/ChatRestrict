@@ -32,7 +32,7 @@ public class MuteallCommand extends BukkitCommand {
         }
 
         this.plugin.getPredicateHandler().setIsChatRestricted(true);
-        sender.sendMessage(messages.muteallMessagesEnabled());
+        sender.sendMessage(messages.prefix().append(messages.muteallMessagesEnabled()));
 
         return false;
     }

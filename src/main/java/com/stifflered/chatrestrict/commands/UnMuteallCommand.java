@@ -27,7 +27,7 @@ public class UnMuteallCommand extends BukkitCommand {
         }
 
         this.plugin.getPredicateHandler().setIsChatRestricted(false);
-        sender.sendMessage(messages.muteallMessagesDisabled());
+        sender.sendMessage(messages.prefix().append(messages.muteallMessagesDisabled()));
 
         return false;
     }

@@ -70,9 +70,9 @@ Flips the result of the rule provided in the ``rule`` section.
 rules:
   my-cool-rule:
     type: "flip"
-    inverted-days-rule:
-      type: "allowed_weekdays"
-      week_days: ["MONDAY", "TUESDAY"]
+      rule:
+        type: "allowed_weekdays"
+        week_days: ["MONDAY", "TUESDAY"]
 ```
 In this case, players are able to talk on days that are NOT monday and tuesday.
 

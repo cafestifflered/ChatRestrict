@@ -22,7 +22,7 @@ public record FlipPredicate(UserInputPredicate innerInput) implements UserInputP
 
         @Override
         public FlipPredicate deserialize(ConfigurationSection section) {
-            ConfigurationSection predicate = section.getConfigurationSection("predicate");
+            ConfigurationSection predicate = section.getConfigurationSection("rule");
 
             return new FlipPredicate(UserInputPredicateRegistry.get(predicate));
         }

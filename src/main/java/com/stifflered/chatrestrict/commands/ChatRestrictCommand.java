@@ -78,11 +78,11 @@ public class ChatRestrictCommand extends BukkitCommand {
                             messages.prefix()
                                     .append(messages.toggleRule(
                                             Component.text(ruleKey),
-                                            Component.text(enabled))
+                                            Component.text(enabled ? "enabled" : "disabled"))
                                     )
                                     .append(Component.newline())
                                     .append(
-                                            predicateHandler.getCompoundPredicate().getRichDescription()
+                                            ruleEnabled.getPredicate().getRichDescription()
                                     )
                     );
                 } else {
