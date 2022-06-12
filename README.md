@@ -10,12 +10,12 @@ Simply add new rule types to the ``rules`` section in the ``config.yml`` to add 
 - If the rule returns false, they are unable to talk.
 
 ### Main Syntax
-Each rule is given a name and if it is enabled or not.
-For example, this creates a rule named ``weekend_check`` which is currently ``disabled``.
+Each rule is given a name, type, and the parameters relating to that type.
+For example, this creates a rule named ``weekend-check``.
 ```yaml
 weekend-check:
   type: "allowed_weekdays"
-  week_days: ["MONDAY", "TUESDAY"]
+  week_days: ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
 ```
 
 ### Types:
@@ -99,9 +99,9 @@ rules:
 - `/chatrestrict reload` (Reloads the config)
 - `/chatrestrict toggle` (Toggles between chat restricted and chat enabled modes)
 - `/chatrestrict enable` (Puts server in chat restricted mode)
-- `/muteall` (Alias for `/chatrestrict enabled`)
 - `/chatrestrict disable` (Puts server in chat allowed mode)
-- `/unmuteall` (Alias for `/chatrestrict disabled`)
+- `/muteall`
+- `/unmuteall` 
 
 ## Future Plans:
 
