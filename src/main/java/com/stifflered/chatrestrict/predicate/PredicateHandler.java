@@ -31,7 +31,7 @@ public class PredicateHandler {
         for (KeyedPredicate predicate : this.compoundPredicate.predicates()) {
             this.predicateMap.put(predicate.getName(), predicate);
         }
-        plugin.getLogger().log(Level.INFO, "Registered %s predicates".formatted(compoundPredicate.predicates().length));
+        plugin.getLogger().log(Level.INFO, "Registered %s rules".formatted(compoundPredicate.predicates().length));
     }
 
     public boolean canChat(Component message, Player player) {
