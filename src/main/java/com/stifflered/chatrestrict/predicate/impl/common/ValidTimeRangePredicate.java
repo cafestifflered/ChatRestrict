@@ -1,15 +1,22 @@
 package com.stifflered.chatrestrict.predicate.impl.common;
 
-import com.stifflered.chatrestrict.predicate.*;
-import org.bukkit.configuration.*;
-import org.bukkit.entity.*;
+import com.stifflered.chatrestrict.predicate.UserInputPredicate;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 
 import java.time.*;
-import java.time.format.*;
-import java.time.temporal.*;
-import java.util.function.*;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.time.temporal.TemporalQueries;
+import java.util.function.Supplier;
 
-public record ValidTimeRangePredicate(LocalTime min, LocalTime max, Supplier<ZoneOffset> offsetSupplier) implements UserInputPredicate {
+public record ValidTimeRangePredicate(LocalTime min, LocalTime max,
+                                      Supplier<ZoneOffset> offsetSupplier) implements UserInputPredicate {
 
     @Override
     public boolean get(String input, Player sender) {
@@ -19,31 +26,16 @@ public record ValidTimeRangePredicate(LocalTime min, LocalTime max, Supplier<Zon
         return now.isAfter(min.atOffset(offset)) && now.isBefore(max.atOffset(offset));
     }
 
+    @Override
+    public Component getRichDescription() {
+        return MiniMessage.miniMessage().deserialize("If the time (<timezone> offset) is within <min> and <max>.",
+                Placeholder.component("timezone", Component.text(offsetSupplier.get().toString(), NamedTextColor.GREEN)),
+                Placeholder.component("min", Component.text(min.toString(), NamedTextColor.GREEN)),
+                Placeholder.component("max", Component.text(max.toString(), NamedTextColor.GREEN))
+        );
+    }
+
     public static class ValidTimeRangePredicateDeserializer implements PredicateDeserializer<ValidTimeRangePredicate> {
-
-        @Override
-        public ValidTimeRangePredicate deserialize(ConfigurationSection section) {
-            String min = section.getString("time_min");
-            String max = section.getString("time_max");
-            String zone = section.getString("zone");
-
-            Supplier<ZoneOffset> parsedZone = zone == null ? () -> OffsetTime.now().getOffset() : parseZone(zone);
-            LocalTime minTime;
-            if (min == null) {
-                minTime = LocalTime.MIDNIGHT;
-            } else {
-                minTime = parseTime(min);
-            }
-
-            LocalTime maxTime;
-            if (max == null) {
-                maxTime = LocalTime.MAX;
-            } else {
-                maxTime = parseTime(max);
-            }
-
-            return new ValidTimeRangePredicate(minTime, maxTime, parsedZone);
-        }
 
         private static Supplier<ZoneOffset> parseZone(String id) {
             // Parse offset
@@ -75,6 +67,30 @@ public record ValidTimeRangePredicate(LocalTime min, LocalTime max, Supplier<Zon
 
         private static LocalTime parseTime(String time) {
             return DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).parse(time).query(TemporalQueries.localTime());
+        }
+
+        @Override
+        public ValidTimeRangePredicate deserialize(ConfigurationSection section) {
+            String min = section.getString("time_min");
+            String max = section.getString("time_max");
+            String zone = section.getString("zone");
+
+            Supplier<ZoneOffset> parsedZone = zone == null ? () -> OffsetTime.now().getOffset() : parseZone(zone);
+            LocalTime minTime;
+            if (min == null) {
+                minTime = LocalTime.MIDNIGHT;
+            } else {
+                minTime = parseTime(min);
+            }
+
+            LocalTime maxTime;
+            if (max == null) {
+                maxTime = LocalTime.MAX;
+            } else {
+                maxTime = parseTime(max);
+            }
+
+            return new ValidTimeRangePredicate(minTime, maxTime, parsedZone);
         }
 
     }

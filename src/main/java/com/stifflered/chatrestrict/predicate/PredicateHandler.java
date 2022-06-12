@@ -1,15 +1,17 @@
 package com.stifflered.chatrestrict.predicate;
 
-import com.stifflered.chatrestrict.*;
-import com.stifflered.chatrestrict.predicate.impl.common.*;
-import net.kyori.adventure.text.*;
-import net.kyori.adventure.text.serializer.plain.*;
-import org.bukkit.configuration.*;
-import org.bukkit.entity.*;
-import org.bukkit.plugin.*;
-import org.jetbrains.annotations.*;
+import com.stifflered.chatrestrict.ChatRestrictPlugin;
+import com.stifflered.chatrestrict.predicate.impl.common.CompoundPredicate;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.logging.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
 
 public class PredicateHandler {
 
@@ -19,20 +21,25 @@ public class PredicateHandler {
 
     private final ConfigurationSection section;
     private final CompoundPredicate compoundPredicate;
+    private final Map<String, KeyedPredicate> predicateMap = new HashMap<>();
     private boolean restricted = true;
 
-    public PredicateHandler(Plugin plugin) {
-        this.section = plugin.getConfig();
+    public PredicateHandler(ChatRestrictPlugin plugin) {
+        this.section = plugin.getRules();
         this.compoundPredicate = CompoundPredicate.CompoundPredicateSerializer.INSTANCE.deserialize(section);
+
+        for (KeyedPredicate predicate : this.compoundPredicate.predicates()) {
+            this.predicateMap.put(predicate.getName(), predicate);
+        }
         plugin.getLogger().log(Level.INFO, "Registered %s predicates".formatted(compoundPredicate.predicates().length));
     }
 
     public boolean canChat(Component message, Player player) {
-        if (!restricted) {
+        if (player.hasPermission("chatrestrict.bypass.all")) {
             return true;
         }
-        if (player.hasPermission("chatrestrict.bypass")) {
-            return true;
+        if (restricted) {
+            return false;
         }
 
         String stringMsg = PlainTextComponentSerializer.plainText().serialize(message);
@@ -53,7 +60,18 @@ public class PredicateHandler {
         return compoundPredicate;
     }
 
-    public boolean terminateOn() {
-        return section.getBoolean("predicate-terminate-on");
+    @Nullable
+    public KeyedPredicate getRule(String ruleKey) {
+        return this.predicateMap.get(ruleKey);
+    }
+
+    public void setAllRules(boolean enabled) {
+        for (KeyedPredicate predicate : compoundPredicate.predicates()) {
+            predicate.setEnabled(enabled);
+        }
+    }
+
+    public KeyedPredicate[] getRules() {
+        return this.compoundPredicate.predicates();
     }
 }

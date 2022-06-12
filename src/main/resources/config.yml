@@ -1,16 +1,15 @@
-predicates:
-  example-predicate:
-    type: "dummy"
-predicate-terminate-on: false
+temp-mute-till: 'unset'
 messages:
   not-sent: '<red>Your message was not sent!'
-  blocking-enabled: '<red>You are no longer able to send messages.'
-  blocking-disabled: '<green>You are now able to send messages.'
   command:
     prefix: '<color:#ff4040>ChatRestrict</color> <color:#da0000>>></color> '
     no-permission: '<red>No permission!'
     chat-restrict:
-      usage: '<red>/chatrestrict <reload/toggle/enable/disable>'
+      usage: '<red>/chatrestrict <reload/enable/disable> [rulename]'
       reload: '<color:gray>Reloaded in <ms> milliseconds.'
-      override-disabled: '<green>Players are now able to talk.'
-      override-enabled: '<yellow>Players are now unable to talk.'
+      toggle-rule-not-found: '<red>Rule was not found!'
+      toggle-rule: '<white> <yellow><rulename></yellow> is now <yellow><status></yellow>. Players will now only be able to chat if:'
+      muteall-enabled: '<green>Players no longer have the ability to chat.'
+      muteall-disabled: '<green>Players now have the ability to chat.'
+      allrules-enabled: '<green>All rules have been enabled.'
+      allrules-disabled: '<green>All rules have been disabled.'

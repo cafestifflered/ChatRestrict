@@ -1,9 +1,11 @@
 package com.stifflered.chatrestrict.listeners;
 
-import com.stifflered.chatrestrict.*;
-import io.papermc.paper.event.player.*;
-import org.bukkit.entity.*;
-import org.bukkit.event.*;
+import com.stifflered.chatrestrict.ChatRestrictPlugin;
+import io.papermc.paper.event.player.AsyncChatEvent;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 
 public class ChatEventListener implements Listener {
 
@@ -17,7 +19,7 @@ public class ChatEventListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void playerChatEvent(AsyncChatEvent event) {
         Player player = event.getPlayer();
-        if (plugin.getPredicateHandler().canChat(event.originalMessage(), player) == plugin.getPredicateHandler().terminateOn()) {
+        if (!plugin.getPredicateHandler().canChat(event.originalMessage(), player)) {
             event.setCancelled(true);
             player.sendMessage(plugin.getPluginMessages().notSent());
         }

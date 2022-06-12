@@ -1,11 +1,11 @@
 package com.stifflered.chatrestrict.predicate;
 
-import com.stifflered.chatrestrict.predicate.impl.command.*;
+import com.stifflered.chatrestrict.predicate.impl.command.InvalidCommandsPredicate;
 import com.stifflered.chatrestrict.predicate.impl.common.*;
-import org.bukkit.configuration.*;
-import org.bukkit.entity.*;
+import org.bukkit.configuration.ConfigurationSection;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserInputPredicateRegistry {
 
@@ -17,7 +17,6 @@ public class UserInputPredicateRegistry {
         add("valid_timerange", new ValidTimeRangePredicate.ValidTimeRangePredicateDeserializer());
         add("invalid_commands", new InvalidCommandsPredicate.InvalidCommandsPredicateDeserializer());
         add("compound", CompoundPredicate.CompoundPredicateSerializer.INSTANCE);
-        add("dummy", new DummyPredicate.DummyPredicateDeserializer());
         // Permission predicate?
     }
 

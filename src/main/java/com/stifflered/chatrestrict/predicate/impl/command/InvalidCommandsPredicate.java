@@ -1,10 +1,11 @@
 package com.stifflered.chatrestrict.predicate.impl.command;
 
-import com.stifflered.chatrestrict.predicate.*;
-import org.bukkit.configuration.*;
-import org.bukkit.entity.*;
+import com.stifflered.chatrestrict.predicate.UserInputPredicate;
+import net.kyori.adventure.text.Component;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.List;
 
 public record InvalidCommandsPredicate(List<String> commands) implements UserInputPredicate {
 
@@ -21,6 +22,11 @@ public record InvalidCommandsPredicate(List<String> commands) implements UserInp
         }
 
         return true; // Either input is not a command or is valid
+    }
+
+    @Override
+    public Component getRichDescription() {
+        return Component.text("If the player's command does not start with: ").append(Component.text(commands.toString()));
     }
 
     public static class InvalidCommandsPredicateDeserializer implements PredicateDeserializer<InvalidCommandsPredicate> {

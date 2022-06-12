@@ -1,7 +1,8 @@
 package com.stifflered.chatrestrict.predicate;
 
-import org.bukkit.configuration.*;
-import org.bukkit.entity.*;
+import net.kyori.adventure.text.Component;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 
 /*
 Returns a condition based on the given input that a player provides.
@@ -9,6 +10,8 @@ Returns a condition based on the given input that a player provides.
 public interface UserInputPredicate {
 
     boolean get(String input, Player sender);
+
+    Component getRichDescription();
 
     interface PredicateDeserializer<T extends UserInputPredicate> {
 
