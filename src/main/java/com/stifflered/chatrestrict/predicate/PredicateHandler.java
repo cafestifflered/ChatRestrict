@@ -22,7 +22,7 @@ public class PredicateHandler {
     private final ConfigurationSection section;
     private final CompoundPredicate compoundPredicate;
     private final Map<String, KeyedPredicate> predicateMap = new HashMap<>();
-    private boolean restricted = true;
+    private boolean restricted = false;
 
     public PredicateHandler(ChatRestrictPlugin plugin) {
         this.section = plugin.getRules();
