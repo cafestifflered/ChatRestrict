@@ -26,7 +26,7 @@ public record InvalidCommandsPredicate(List<String> commands) implements UserInp
 
     @Override
     public Component getRichDescription() {
-        return Component.text("If the player's command does not start with: ").append(Component.text(commands.toString()));
+        return Component.text("- If the player's command does not start with: ").append(Component.text(commands.toString()));
     }
 
     public static class InvalidCommandsPredicateDeserializer implements PredicateDeserializer<InvalidCommandsPredicate> {

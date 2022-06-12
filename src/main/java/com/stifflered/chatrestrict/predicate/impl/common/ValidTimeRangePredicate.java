@@ -28,7 +28,7 @@ public record ValidTimeRangePredicate(LocalTime min, LocalTime max,
 
     @Override
     public Component getRichDescription() {
-        return MiniMessage.miniMessage().deserialize("If the time (<timezone> offset) is within <min> and <max>.",
+        return MiniMessage.miniMessage().deserialize("- If the time (<timezone> offset) is within <min> and <max>.",
                 Placeholder.component("timezone", Component.text(offsetSupplier.get().toString(), NamedTextColor.GREEN)),
                 Placeholder.component("min", Component.text(min.toString(), NamedTextColor.GREEN)),
                 Placeholder.component("max", Component.text(max.toString(), NamedTextColor.GREEN))

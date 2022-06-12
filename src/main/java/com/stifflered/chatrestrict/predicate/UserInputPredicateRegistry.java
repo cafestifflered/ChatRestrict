@@ -17,7 +17,6 @@ public class UserInputPredicateRegistry {
         add("allowed_timerange", new ValidTimeRangePredicate.ValidTimeRangePredicateDeserializer());
         add("disallowed_commands", new InvalidCommandsPredicate.InvalidCommandsPredicateDeserializer());
         add("ruleset", CompoundPredicate.CompoundPredicateSerializer.INSTANCE);
-        // Permission predicate?
     }
 
     public static UserInputPredicate get(ConfigurationSection section) {

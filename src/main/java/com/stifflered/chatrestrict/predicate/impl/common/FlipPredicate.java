@@ -15,7 +15,7 @@ public record FlipPredicate(UserInputPredicate innerInput) implements UserInputP
 
     @Override
     public Component getRichDescription() {
-        return Component.text("NOT: ").append(innerInput.getRichDescription());
+        return Component.text("- NOT: ").append(innerInput.getRichDescription());
     }
 
     public static class FlipSerializer implements UserInputPredicate.PredicateDeserializer<FlipPredicate> {

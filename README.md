@@ -1,9 +1,9 @@
 # ChatRestrict Scheduler
-Disable or Enable chat access for specific time periods.
+Disable or Enable chat and command access for specific time periods for specific players.
 
 ## Rules:
-Rules are used to determine the condition in which a player may/maynot be able to talk or send a command.
-Simply add new rule types to the ``rules`` section in the ``config.yml`` to add them.
+Rules are used to determine the condition in which a player may or may not be able to talk or send a command.
+Simply add new rule types to the ``rules.yml`` to add them.
 
 ### General Rule Logic:
 - If the rule returns true, they are able to talk.
@@ -13,20 +13,22 @@ Simply add new rule types to the ``rules`` section in the ``config.yml`` to add 
 Each rule is given a name, type, and the parameters relating to that type.
 For example, this creates a rule named ``weekend-check``.
 ```yaml
-weekend-check:
-  type: "allowed_weekdays"
-  week_days: ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
+rules:
+  weekend-check:
+    type: "allowed_weekdays"
+    week_days: ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
 ```
 
 ### Types:
 
 ### allowed_weekdays
-Returns true if the current week day is in the ``week_days`` list.
+Returns true if the current day of the week is in the ``week_days`` list.
 #### Syntax
 ```yaml
-my-cool-rule:
-  type: "allowed_weekdays"
-  week_days: ["MONDAY", "TUESDAY"]
+rules:
+  my-cool-rule:
+    type: "allowed_weekdays"
+    week_days: ["MONDAY", "TUESDAY"]
 ```
 
 ### allowed_timerange
@@ -34,11 +36,12 @@ Returns true if the current time is within the provided timestamps.
 
 #### Syntax
 ```yaml
-my-cool-rule:
-  type: "allowed_timerange"
-  time_min: "7:00 AM"
-  time_max: "8:00 PM"
-  zone: "EST"
+rules:
+  my-cool-rule:
+    type: "allowed_timerange"
+    time_min: "7:00 AM"
+    time_max: "8:00 PM"
+    zone: "EST"
 ```
 #### Notes:
 - ``time_min`` and ``time_max`` 
@@ -54,20 +57,22 @@ my-cool-rule:
 Returns true if the command the player executes does not start with any of the provided ``commands``.
 #### Syntax
   ```yaml
-my-cool-rule:
-  type: "disallowed_commands"
-  commands: ["say", "tell", "msg"]
+rules:
+  my-cool-rule:
+    type: "disallowed_commands"
+    commands: ["say", "tell", "msg"]
 ```
 
 ### flip
 Flips the result of the rule provided in the ``rule`` section.
 #### Syntax
 ```yaml
-my-cool-rule:
-type: "flip"
-rule:
-    type: "allowed_weekdays"
-    week_days: ["MONDAY", "TUESDAY"]
+rules:
+  my-cool-rule:
+    type: "flip"
+    inverted-days-rule:
+      type: "allowed_weekdays"
+      week_days: ["MONDAY", "TUESDAY"]
 ```
 In this case, players are able to talk on days that are NOT monday and tuesday.
 
@@ -76,15 +81,16 @@ Goes through the ``rules`` and will return true if all pass, and false if at lea
 This is the base structure used in the configuration file.
 #### Syntax
 ```yaml
-my-cool-rule:
-type: "ruleset"
 rules:
   my-cool-rule:
-    type: "allowed_weekdays"
-    week_days: ["MONDAY", "TUESDAY"]
-  my-cool-rule-2:
-    type: "allowed_weekdays"  
-    week_days: ["SUNDAY", "MONDAY"]
+    type: "ruleset"
+    rules:
+      my-cool-rule:
+        type: "allowed_weekdays"
+        week_days: ["MONDAY", "TUESDAY"]
+      my-cool-rule-2:
+        type: "allowed_weekdays"  
+        week_days: ["SUNDAY", "MONDAY"]
 ```
 
 ## Permissions:

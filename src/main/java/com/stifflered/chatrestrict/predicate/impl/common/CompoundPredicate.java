@@ -33,7 +33,7 @@ public record CompoundPredicate(KeyedPredicate[] predicates) implements UserInpu
     @Override
     public Component getRichDescription() {
         TextComponent.Builder builder = Component.text();
-        builder.content("All the following conditions must return ");
+        builder.content("All of the following conditions must return ");
         builder.append(Component.text(true, NamedTextColor.GREEN));
 
         int ignored = 0;

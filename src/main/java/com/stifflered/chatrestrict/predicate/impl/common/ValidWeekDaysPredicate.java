@@ -20,7 +20,7 @@ public record ValidWeekDaysPredicate(Set<DayOfWeek> days) implements UserInputPr
 
     @Override
     public Component getRichDescription() {
-        return Component.text("If the current weekday is any of: ").append(Component.text(days.toString()));
+        return Component.text("- If the current day of the week is any of: ").append(Component.text(days.toString()));
     }
 
     public static class ValidWeekDaysPredicateDeserializer implements PredicateDeserializer<ValidWeekDaysPredicate> {
