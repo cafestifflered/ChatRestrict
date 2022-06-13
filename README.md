@@ -1,6 +1,8 @@
 # ChatRestrict Scheduler
 Disable or Enable chat and command access for specific time periods for specific players.
 
+**Download on SpigotMC:** https://www.spigotmc.org/resources/chatrestrict.102607/
+
 ## Rules:
 Rules are used to determine the condition in which a player may or may not be able to talk or send a command.
 Simply add new rule types to the ``rules.yml`` to add them.
