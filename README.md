@@ -34,9 +34,9 @@ rules:
         week_days: ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
       chat-time:
         type: "allowed_timerange"
-        time_min: "12:00 AM"
+        time_min: "0:00 AM"
         time_max: "11:59 PM"
-        zone: "EST"
+        zone: "America/Chicago"
   command-blocklist:
     type: "disallowed_commands"
     commands: ["cr_comma", "cr_separated", "cr_list_of_commands"]
@@ -44,9 +44,9 @@ rules:
     type: "flip"
     rule:
       type: "allowed_timerange"
-      time_min: "4:32 AM"
-      time_max: "4:33 AM"
-      zone: "EST"
+      time_min: "3:39 AM"
+      time_max: "3:40 AM"
+      zone: "America/Chicago"
 ```
 
 ### Types:
@@ -86,7 +86,6 @@ rules:
   - When using time periods (AM/PM) ensure there is a space and they are capital.
 - ``zone``
   - Supports long timezones ``America/Los_Angeles`` (recommended)
-  - Supports short timezones ``EST``
   - Supports time offsets ``-05:00``
     - When using timezones, time offsets are automatically calculated.
 
