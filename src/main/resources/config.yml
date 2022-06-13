@@ -1,4 +1,4 @@
-temp-mute-till: 'unset'
+verbose-logging: false
 messages:
   not-sent: '<color:#bc7457>Your message was not sent!'
   command:

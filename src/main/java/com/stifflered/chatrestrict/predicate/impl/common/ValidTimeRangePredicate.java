@@ -1,13 +1,14 @@
 package com.stifflered.chatrestrict.predicate.impl.common;
 
+import com.stifflered.chatrestrict.ChatRestrictPlugin;
 import com.stifflered.chatrestrict.predicate.UserInputPredicate;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import org.slf4j.Logger;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -22,6 +23,13 @@ public record ValidTimeRangePredicate(LocalTime min, LocalTime max,
     public boolean get(String input, Player sender) {
         ZoneOffset offset = offsetSupplier.get();
         OffsetTime now = OffsetTime.now();
+
+        if (ChatRestrictPlugin.getInstance().isLogging()) {
+            Logger logger = ChatRestrictPlugin.getInstance().getSLF4JLogger();
+            logger.debug("CURRENT: " + now);
+            logger.debug("MIN: " + min.atOffset(offset));
+            logger.debug("MAX: " + max.atOffset(offset));
+        }
 
         return now.isAfter(min.atOffset(offset)) && now.isBefore(max.atOffset(offset));
     }

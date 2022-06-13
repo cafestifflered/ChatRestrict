@@ -97,4 +97,8 @@ public class ChatRestrictPlugin extends JavaPlugin {
             logger.error("Failed to save file!", e);
         }
     }
+
+    public boolean isLogging() {
+        return getConfig().getBoolean("verbose-logging");
+    }
 }
