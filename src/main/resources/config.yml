@@ -1,6 +1,8 @@
 verbose-logging: false
+restrict-books-and-signs: false
 messages:
   not-sent: '<color:#bc7457>Your message was not sent!'
+  cant-use-this: '<color:#bc7457>You are not able to use this at this time!'
   command:
     prefix: '<color:#bc7457>[ChatRestrict]</color><color:#306f88>:</color> '
     no-permission: '<red>No permission!'

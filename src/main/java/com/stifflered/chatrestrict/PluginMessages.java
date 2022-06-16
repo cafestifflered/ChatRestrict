@@ -24,6 +24,10 @@ public class PluginMessages {
         return simple("not-sent");
     }
 
+    public Component cantusethis() {
+        return simple("cant-use-this");
+    }
+
     // Command messages
     public Component prefix() {
         return simple("command.prefix");

@@ -2,7 +2,9 @@ package com.stifflered.chatrestrict;
 
 import com.google.common.base.Charsets;
 import com.stifflered.chatrestrict.commands.*;
+import com.stifflered.chatrestrict.listeners.BookEventListener;
 import com.stifflered.chatrestrict.listeners.ChatEventListener;
+import com.stifflered.chatrestrict.listeners.SignEventListener;
 import com.stifflered.chatrestrict.predicate.PredicateHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -36,6 +38,8 @@ public class ChatRestrictPlugin extends JavaPlugin {
         instance = this;
 
         Bukkit.getPluginManager().registerEvents(new ChatEventListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new BookEventListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new SignEventListener(this), this);
         register(new ChatRestrictCommand(this));
         register(new MuteallCommand(this));
         //register(new TempMuteallCommand(this));
@@ -100,5 +104,9 @@ public class ChatRestrictPlugin extends JavaPlugin {
 
     public boolean isLogging() {
         return getConfig().getBoolean("verbose-logging");
+    }
+
+    public boolean isRestrictingExtra() {
+        return getConfig().getBoolean("restrict-books-and-signs");
     }
 }
