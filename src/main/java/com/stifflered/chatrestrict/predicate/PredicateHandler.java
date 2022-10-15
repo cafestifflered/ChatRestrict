@@ -34,12 +34,12 @@ public class PredicateHandler {
         plugin.getLogger().log(Level.INFO, "Registered %s rules".formatted(compoundPredicate.predicates().length));
     }
 
-    public boolean canChat(Component message, Player player) {
+    public RuleResult canChat(Component message, Player player) {
         if (player.hasPermission("chatrestrict.bypass.all")) {
-            return true;
+            return new RuleResult(true, null);
         }
         if (restricted) {
-            return false;
+            return new RuleResult(false, null);
         }
 
         String stringMsg = PlainTextComponentSerializer.plainText().serialize(message);

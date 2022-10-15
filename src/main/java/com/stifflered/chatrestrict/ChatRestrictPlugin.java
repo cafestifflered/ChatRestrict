@@ -6,6 +6,7 @@ import com.stifflered.chatrestrict.listeners.BookEventListener;
 import com.stifflered.chatrestrict.listeners.ChatEventListener;
 import com.stifflered.chatrestrict.listeners.SignEventListener;
 import com.stifflered.chatrestrict.predicate.PredicateHandler;
+import io.papermc.paper.configuration.GlobalConfiguration;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -16,8 +17,11 @@ import org.slf4j.Logger;
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Set;
 
 public class ChatRestrictPlugin extends JavaPlugin {
+
+    private static final Set<String> NO_KICK = Set.of("1.18.2", "1.19", "1.19.1");
 
     private static ChatRestrictPlugin instance;
     private PredicateHandler predicateHandler;
@@ -44,6 +48,13 @@ public class ChatRestrictPlugin extends JavaPlugin {
         register(new MuteallCommand(this));
         //register(new TempMuteallCommand(this));
         register(new UnMuteallCommand(this));
+
+        if (this.shouldKick()) {
+            logger.info("**********************************");
+            logger.info("Players will be kicked if they violate chat rules.");
+            logger.info("This is because of your server version and using velocity.");
+            logger.info("**********************************");
+        }
     }
 
     private void register(Command command) {
@@ -62,6 +73,10 @@ public class ChatRestrictPlugin extends JavaPlugin {
         reloadConfig();
         this.predicateHandler = new PredicateHandler(this);
         this.messages = new PluginMessages(this);
+    }
+
+    public boolean shouldKick() {
+        return GlobalConfiguration.get().proxies.velocity.enabled && !NO_KICK.contains(Bukkit.getBukkitVersion());
     }
 
     public FileConfiguration getRules() {

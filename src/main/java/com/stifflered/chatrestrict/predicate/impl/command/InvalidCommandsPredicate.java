@@ -1,5 +1,6 @@
 package com.stifflered.chatrestrict.predicate.impl.command;
 
+import com.stifflered.chatrestrict.predicate.RuleResult;
 import com.stifflered.chatrestrict.predicate.UserInputPredicate;
 import net.kyori.adventure.text.Component;
 import org.bukkit.configuration.ConfigurationSection;
@@ -10,18 +11,18 @@ import java.util.List;
 public record InvalidCommandsPredicate(List<String> commands) implements UserInputPredicate {
 
     @Override
-    public boolean get(String input, Player sender) {
+    public RuleResult get(String input, Player sender) {
         if (input.startsWith("/")) {
             String rawInput = input.substring(1);
 
             for (String command : commands) {
                 if (command.startsWith(rawInput)) {
-                    return false;
+                    return RuleResult.of(false);
                 }
             }
         }
 
-        return true; // Either input is not a command or is valid
+        return RuleResult.of(true); // Either input is not a command or is valid
     }
 
     @Override

@@ -107,7 +107,7 @@ public class ChatRestrictCommand extends BukkitCommand {
                 sender.sendMessage(Component.text("Backing Predicate " + this.plugin.getPredicateHandler().getCompoundPredicate()));
                 for (KeyedPredicate predicate : this.plugin.getPredicateHandler().getCompoundPredicate().predicates()) {
                     sender.sendMessage(Component.text("Predicate Element: ").append(Component.text(predicate.getClass().getName(), NamedTextColor.GREEN)));
-                    sender.sendMessage(Component.text("Predicate Test: ").append(Component.text(predicate.getPredicate().get("test", (Player) sender), NamedTextColor.GOLD)));
+                    sender.sendMessage(Component.text("Predicate Test: ").append(Component.text(predicate.getPredicate().get("test", (Player) sender).result(), NamedTextColor.GOLD)));
                 }
 
                 return true;

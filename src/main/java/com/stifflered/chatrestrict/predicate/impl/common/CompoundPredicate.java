@@ -1,8 +1,6 @@
 package com.stifflered.chatrestrict.predicate.impl.common;
 
-import com.stifflered.chatrestrict.predicate.KeyedPredicate;
-import com.stifflered.chatrestrict.predicate.UserInputPredicate;
-import com.stifflered.chatrestrict.predicate.UserInputPredicateRegistry;
+import com.stifflered.chatrestrict.predicate.*;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -15,19 +13,22 @@ import java.util.Set;
 public record CompoundPredicate(KeyedPredicate[] predicates) implements UserInputPredicate {
 
     @Override
-    public boolean get(String input, Player sender) {
+    public RuleResult get(String input, Player sender) {
         // Stop on first false
         for (KeyedPredicate predicate : predicates) {
             if (!predicate.isEnabled()) {
                 continue;
             }
 
-            if (!sender.hasPermission("chatrestrict.bypass." + predicate.getName()) && !predicate.getPredicate().get(input, sender)) {
-                return false;
+            if (!sender.hasPermission("chatrestrict.bypass." + predicate.getName())) {
+                RuleResult result = predicate.getPredicate().get(input, sender);
+                if (!result.result()) {
+                    return new RuleResult(false, predicate);
+                }
             }
         }
 
-        return true;
+        return RuleResult.TRUE;
     }
 
     @Override
@@ -73,7 +74,7 @@ public record CompoundPredicate(KeyedPredicate[] predicates) implements UserInpu
             for (String key : predicateKeys) {
                 ConfigurationSection configurationSection = predicates.getConfigurationSection(key);
 
-                KeyedPredicate predicate = new KeyedPredicate(key, UserInputPredicateRegistry.get(configurationSection));
+                KeyedPredicate predicate = new KeyedPredicate(key, configurationSection.getString("description"), UserInputPredicateRegistry.get(configurationSection));
 
                 userInputPredicates[index] = predicate;
                 index++;

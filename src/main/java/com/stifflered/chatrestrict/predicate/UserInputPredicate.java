@@ -9,7 +9,7 @@ Returns a condition based on the given input that a player provides.
  */
 public interface UserInputPredicate {
 
-    boolean get(String input, Player sender);
+    RuleResult get(String input, Player sender);
 
     Component getRichDescription();
 

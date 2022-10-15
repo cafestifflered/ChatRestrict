@@ -1,6 +1,7 @@
 package com.stifflered.chatrestrict.predicate.impl.common;
 
 import com.stifflered.chatrestrict.ChatRestrictPlugin;
+import com.stifflered.chatrestrict.predicate.RuleResult;
 import com.stifflered.chatrestrict.predicate.UserInputPredicate;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -20,7 +21,7 @@ public record ValidTimeRangePredicate(LocalTime min, LocalTime max,
                                       Supplier<ZoneOffset> offsetSupplier) implements UserInputPredicate {
 
     @Override
-    public boolean get(String input, Player sender) {
+    public RuleResult get(String input, Player sender) {
         ZoneOffset offset = offsetSupplier.get();
         OffsetTime now = OffsetTime.now();
 
@@ -31,7 +32,7 @@ public record ValidTimeRangePredicate(LocalTime min, LocalTime max,
             logger.debug("MAX: " + max.atOffset(offset));
         }
 
-        return now.isAfter(min.atOffset(offset)) && now.isBefore(max.atOffset(offset));
+        return RuleResult.of(now.isAfter(min.atOffset(offset)) && now.isBefore(max.atOffset(offset)));
     }
 
     @Override

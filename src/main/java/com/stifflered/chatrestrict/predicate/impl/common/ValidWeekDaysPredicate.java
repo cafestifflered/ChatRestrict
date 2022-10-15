@@ -1,5 +1,6 @@
 package com.stifflered.chatrestrict.predicate.impl.common;
 
+import com.stifflered.chatrestrict.predicate.RuleResult;
 import com.stifflered.chatrestrict.predicate.UserInputPredicate;
 import net.kyori.adventure.text.Component;
 import org.bukkit.configuration.ConfigurationSection;
@@ -14,8 +15,8 @@ import java.util.Set;
 public record ValidWeekDaysPredicate(Set<DayOfWeek> days) implements UserInputPredicate {
 
     @Override
-    public boolean get(String input, Player sender) {
-        return days.contains(DayOfWeek.from(OffsetDateTime.now()));
+    public RuleResult get(String input, Player sender) {
+        return RuleResult.of(days.contains(DayOfWeek.from(OffsetDateTime.now())));
     }
 
     @Override

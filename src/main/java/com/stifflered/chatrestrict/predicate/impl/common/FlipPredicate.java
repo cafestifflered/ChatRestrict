@@ -1,5 +1,6 @@
 package com.stifflered.chatrestrict.predicate.impl.common;
 
+import com.stifflered.chatrestrict.predicate.RuleResult;
 import com.stifflered.chatrestrict.predicate.UserInputPredicate;
 import com.stifflered.chatrestrict.predicate.UserInputPredicateRegistry;
 import net.kyori.adventure.text.Component;
@@ -9,8 +10,9 @@ import org.bukkit.entity.Player;
 public record FlipPredicate(UserInputPredicate innerInput) implements UserInputPredicate {
 
     @Override
-    public boolean get(String input, Player sender) {
-        return !innerInput.get(input, sender);
+    public RuleResult get(String input, Player sender) {
+        RuleResult result = innerInput.get(input, sender);
+        return new RuleResult(!result.result(), result.broken());
     }
 
     @Override

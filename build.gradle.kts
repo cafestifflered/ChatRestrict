@@ -3,6 +3,7 @@ plugins {
     id("com.github.johnrengelman.shadow") version "7.1.0"
     id("xyz.jpenilla.run-paper") version "1.0.6"
     id("net.minecrell.plugin-yml.bukkit") version "0.5.1"
+    id("io.papermc.paperweight.userdev") version "1.3.5"
 }
 
 group = "com.stifflered"
@@ -13,6 +14,7 @@ repositories {
 }
 
 dependencies {
+    paperDevBundle("1.19.2-R0.1-SNAPSHOT")
     compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
 }
 
@@ -30,17 +32,9 @@ tasks {
         options.release.set(17)
     }
 
-    shadowJar {
-        dependencies {
-
-        }
-
-    }
-
     runServer {
-        minecraftVersion("1.18.2")
+        minecraftVersion("1.19.2")
     }
-
 }
 
 java {

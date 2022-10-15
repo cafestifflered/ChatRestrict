@@ -138,9 +138,11 @@ rules:
 ## Permissions:
 
 - Bypass All Rules & Restrictions: `chatrestrict.bypass.all`
-- Bypass Rule `chatrestrict.bypass.<rulename>`
-- Reload `chatrestrict.reload`
-- Enable/Disable Rules `chatrestrict.toggle`
+- Bypass Rule: `chatrestrict.bypass.<rulename>`
+- Reload: `chatrestrict.reload`
+- Enable/Disable Rules: `chatrestrict.toggle`
+- See description of rule broken: `chatrestrict.description`
+- See rules broken by other players: `chatrestrict.description.others`
 
 ## Commands:
 

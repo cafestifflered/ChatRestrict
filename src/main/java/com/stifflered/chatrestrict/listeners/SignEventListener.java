@@ -25,7 +25,7 @@ public class SignEventListener implements Listener {
 
         Player player = event.getPlayer();
 
-        if (!plugin.getPredicateHandler().canChat(Component.text("DUMMY SIGN INFO"), player)) {
+        if (!plugin.getPredicateHandler().canChat(Component.text("DUMMY SIGN INFO"), player).result()) {
             PluginMessages messages = plugin.getPluginMessages();
             player.sendMessage(messages.prefix().append(messages.cantusethis()));
             event.setCancelled(true);

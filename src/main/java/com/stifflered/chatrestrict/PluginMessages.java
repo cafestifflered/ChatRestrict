@@ -1,5 +1,6 @@
 package com.stifflered.chatrestrict;
 
+import com.stifflered.chatrestrict.predicate.KeyedPredicate;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -8,7 +9,6 @@ import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
 
 public class PluginMessages {
 
@@ -22,6 +22,10 @@ public class PluginMessages {
 
     public Component notSent() {
         return simple("not-sent");
+    }
+
+    public Component kickMsg() {
+        return simple("kick");
     }
 
     public Component cantusethis() {
@@ -72,6 +76,17 @@ public class PluginMessages {
         return simple("command.chat-restrict.toggle-rule-not-found");
     }
 
+    public Component playerBrokeChatRule(String name) {
+        return MiniMessage.miniMessage().deserialize(messageConfig.getString("broke-rule"),
+                Placeholder.parsed("player", name)
+        );
+    }
+
+    public Component ruleBrokenDescription(KeyedPredicate predicate) {
+        return MiniMessage.miniMessage().deserialize(messageConfig.getString("rule-broken-info"),
+                Placeholder.parsed("description", predicate.getDescription())
+        );
+    }
 
     private Component simple(String key) {
         Component message = cachedSimpleMessages.get(key);

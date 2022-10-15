@@ -3,6 +3,9 @@ restrict-books-and-signs: false
 messages:
   not-sent: '<color:#bc7457>Your message was not sent!'
   cant-use-this: '<color:#bc7457>You are not able to use this at this time!'
+  kick: '<color:red>You have been kicked for violating a chat rule. You cannot talk at this time!'
+  broke-rule: '<color:gray><player> has broken a chat rule.'
+  rule-broken-info: '<color:gray>Description: <description> '
   command:
     prefix: '<color:#bc7457>[ChatRestrict]</color><color:#306f88>:</color> '
     no-permission: '<red>No permission!'

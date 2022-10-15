@@ -12,9 +12,11 @@ rules:
         zone: "EST"
   command-blocklist:
     type: "disallowed_commands"
+    description: "Using a banned command"
     commands: ["cr_comma", "cr_separated", "cr_list_of_commands"]
   flipped-rule:
     type: "flip"
+    description : "Chatting during 4:32 AM-4:33 AM"
     rule:
       type: "allowed_timerange"
       time_min: "4:32 AM"
