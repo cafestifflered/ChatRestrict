@@ -16,6 +16,7 @@ public class UserInputPredicateRegistry {
         add("allowed_weekdays", new ValidWeekDaysPredicate.ValidWeekDaysPredicateDeserializer());
         add("allowed_timerange", new ValidTimeRangePredicate.ValidTimeRangePredicateDeserializer());
         add("disallowed_commands", new InvalidCommandsPredicate.InvalidCommandsPredicateDeserializer());
+        add("online_player_with_permission", new PlayerPermissionPredicate.PlayerPermissionPredicateDeserializer());
         add("ruleset", CompoundPredicate.CompoundPredicateSerializer.INSTANCE);
     }
 

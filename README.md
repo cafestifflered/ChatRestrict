@@ -58,6 +58,7 @@ There are five types of rules which admins can create:
 - disallowed_commands
 - flip
 - ruleset
+- online_player_with_permission
 
 
 ### allowed_weekdays
@@ -133,6 +134,17 @@ rules:
         type: "allowed_weekdays"  
         week_days: ["SUNDAY", "MONDAY"]
 ```
+
+### online_player_with_permission
+Allows players to talk only if there is a player online with configured ``permission``.
+#### Syntax
+```yaml
+rules:
+  my-cool-rule:
+    type: "online_player_with_permission"
+    permission: "mycoolpermission.talk"
+```
+In this case, if a player is online with the mycoolpermission.talk they will be allowed to speak.
 
 
 ## Permissions:
